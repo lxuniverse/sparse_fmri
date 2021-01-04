@@ -37,7 +37,7 @@ def load_data(para, dataset):
     y = torch.tensor(y)
 
     # load
-    kwargs = {'num_workers': 1, 'pin_memory': True}
+    kwargs = {'num_workers': 4, 'pin_memory': True}
     test_set = data_utils.TensorDataset(x, y)
     test_loader = torch.utils.data.DataLoader(test_set,
                                               batch_size=16, shuffle=True, **kwargs)

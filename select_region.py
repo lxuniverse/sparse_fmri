@@ -71,7 +71,7 @@ if __name__ == '__main__':
     para = {'exp': args.exp, 'data_fold': args.data_fold, 'data_seed': 0, 'feature_num': 429655,
             'layers_dim_tuple': (200, 16), 'lambda': args.L, 'r': args.r, 'group_num': m_gn_dict[args.group_method],
             'lr1': 0.005, 'lr2': 1, 'device': 'cuda',
-            'start_epoch': 0, 'epochs': 900, 'print_freq': 100, 'group_method': args.group_method}
+            'start_epoch': 0, 'epochs': 600, 'print_freq': 100, 'group_method': args.group_method}
 
     prng = np.random.RandomState(para['group_method']+1)
     torch.manual_seed(para['group_method']+1)
