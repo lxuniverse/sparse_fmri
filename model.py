@@ -77,18 +77,20 @@ class MLP_choose(nn.Module):
     def __init__(self, vec_select_feature, input_dim, num_classes, layer_dims=(300, 100), device = 'cuda'):
         super(MLP_choose, self).__init__()
         self.device = device
-        self.layer_dims = layer_dims
-        self.input_dim = input_dim
+
         self.vec_select_feature = vec_select_feature
         self.vec_select_feature.requires_grad = False
         self.vec_select_feature = self.vec_select_feature.to(device)
+
+        self.layer_dims = layer_dims
+        self.input_dim = input_dim
+
         layers = []
         for i, dimh in enumerate(self.layer_dims):
             inp_dim = self.input_dim if i == 0 else self.layer_dims[i - 1]
             layers += [nn.Linear(inp_dim, dimh), nn.ReLU()]
         layers.append(nn.Linear(self.layer_dims[-1], num_classes))
         self.output = nn.Sequential(*layers)
-
         self.sig = nn.Sigmoid()
 
 
