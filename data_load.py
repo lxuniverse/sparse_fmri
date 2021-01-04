@@ -10,27 +10,27 @@ def load_data(para, dataset):
     """
     if dataset == 0:
         x = np.load(
-            '/home/xli62/brain_new/data/dataset/xb_t_{}_{}.npy'.format(para['data_fold'], para['data_seed']))
+            './data/dataset/xb_t_{}_{}.npy'.format(para['data_fold'], para['data_seed']))
         y = np.load(
-            '/home/xli62/brain_new/data/dataset/yb_t_{}_{}.npy'.format(para['data_fold'], para['data_seed']))
+            './data/dataset/yb_t_{}_{}.npy'.format(para['data_fold'], para['data_seed']))
         y = y - 1
         y = y.astype(np.long)
     elif dataset == 1:
         x = np.load(
-            '/home/xli62/brain_new/data/dataset/xb_v_{}_{}.npy'.format(para['data_fold'], para['data_seed']))
+            './data/dataset/xb_v_{}_{}.npy'.format(para['data_fold'], para['data_seed']))
         y = np.load(
-            '/home/xli62/brain_new/data/dataset/yb_v_{}_{}.npy'.format(para['data_fold'], para['data_seed']))
+            './data/dataset/yb_v_{}_{}.npy'.format(para['data_fold'], para['data_seed']))
         y = y - 1
         y = y.astype(np.long)
     elif dataset == 2:
-        x = np.load('/home/xli62/brain_new/data/dataset/top_data.npy')
-        y = np.load('/home/xli62/brain_new/data/dataset/top_label.npy')
+        x = np.load('./data/dataset/top_data.npy')
+        y = np.load('./data/dataset/top_label.npy')
     elif dataset == 3:
-        x = np.load('/home/xli62/brain_new/data/dataset/hubin_data.npy')
-        y = np.load('/home/xli62/brain_new/data/dataset/hubin_label.npy')
+        x = np.load('./data/dataset/hubin_data.npy')
+        y = np.load('./data/dataset/hubin_label.npy')
     elif dataset == 4:
-        x = np.load('/home/xli62/brain_new/data/dataset/bsnip_data.npy')
-        y = np.load('/home/xli62/brain_new/data/dataset/bsnip_label.npy')
+        x = np.load('./data/dataset/bsnip_data.npy')
+        y = np.load('./data/dataset/bsnip_label.npy')
     x = x.astype(np.float32)
     # reshape and to tensor
     x = torch.tensor(x)
