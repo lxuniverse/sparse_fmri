@@ -1,4 +1,4 @@
-for method in 1 2 3
+for method in $3 # 1 3
 do
   for fold in 0 1 2
   do

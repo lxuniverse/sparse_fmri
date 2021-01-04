@@ -22,7 +22,7 @@ class MLP_lasso_l0(nn.Module):
 
         # lasso
         # group_idx = torch.tensor(np.load('/home/xli62/brain/brain_l0_group/group_idx/{}.npy'.format(r)))
-        group_idx = torch.tensor(np.load('/home/xli62/brain_new/data/group_idx_m_{}_r_{}.npy'.format(group_method, r)))
+        group_idx = torch.tensor(np.load('./data/group_idx_m_{}_r_{}.npy'.format(group_method, r)))
         self.group_idx = group_idx.long() - 1
         self.group_idx = self.group_idx.to(device)
 
