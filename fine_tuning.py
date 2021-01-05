@@ -21,18 +21,18 @@ def main(para):
 
     # get the feature vector. different regions for different fold and region splitting method
     # dict: key: (method, num); value: group_idx list
-    group_idx_dict = {(1, 5): [448, 562, 733, 891, 1111],
+    group_idx_dict = {(1, 5): [448, 520, 562, 733, 891],
                       (2, 5): [],
-                      (3, 5): [],
+                      (3, 5): [73, 246, 879, 903, 967],
                       (1, 20): [102, 154, 185, 251, 286, 392, 448, 485, 520, 562, 586, 733, 801, 815, 820,
                                 830, 868, 891, 1026, 1111, 1116],
                       (2, 20): [],
-                      (3, 20): []}
+                      (3, 20): [28, 62, 73, 122, 145, 246, 266, 290, 430, 496, 617, 627, 800, 824, 879, 903, 967, 981, 1067, 1111]}
 
     groups_idx = group_idx_dict[(para['group_method'], para['group_select_num'])]
     groups_vec = torch.zeros(para['group_num'])
     groups_vec[groups_idx] = 1
-    group_idx = torch.tensor(np.load('/home/xli62/brain/brain_l0_group/group_idx/{}.npy'.format(para['r'])))
+    group_idx = torch.tensor(np.load('./data/group_idx_m_{}_r_{}.npy'.format(para['group_method'], para['r'])))
     group_idx = group_idx.long() - 1
     vec_feature_select = groups_vec[group_idx]
 
