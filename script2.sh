@@ -1,4 +1,4 @@
-for lr in 1e-5 5e-5 5e-6 1e-4 1e-6 # 1e-5 1e-4 1e-6
+for lr in 1e-5 5e-5 5e-6 # 1e-5 1e-4 1e-6
 do
   for method in $2 # 1 3
   do
