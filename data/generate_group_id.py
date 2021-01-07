@@ -5,6 +5,9 @@ import numpy as np
 import hdf5storage
 import random
 
+# seed = 10
+# random.seed(seed)
+
 def generate_group_indexes(coordinates, voxel_num, ridius, method):
     """
     method: 0: original; 1: reverse; 2: random;
@@ -20,7 +23,7 @@ def generate_group_indexes(coordinates, voxel_num, ridius, method):
         iteration_list = range(voxel_num - 1, -1, -1)
     elif method == 2:
         iteration_list = list(range(voxel_num))
-        iteration_list = random.shuffle(iteration_list)
+        random.shuffle(iteration_list)
 
     for i in iteration_list:
         print(i)
@@ -136,7 +139,7 @@ def dist_func(center_set, coordinates):
 def main():
     voxel_num = 429655
     ridius = 12
-    grouping_method = 4  # 0: original; 1: reverse; 2: random; 3: furthest
+    grouping_method = 2  # 0: original; 1: reverse; 2: random; 3: furthest
     print('r = {}, method = {}'.format(ridius, grouping_method))
 
     # read coordinates
@@ -149,7 +152,10 @@ def main():
     elif grouping_method == 4:
         group_idx_vec = generate_group_indexes_furthest_toall(coordinates, voxel_num, ridius)
     print(np.max(group_idx_vec))
-    np.save('group_idx_m_{}_r_{}.npy'.format(grouping_method, ridius), group_idx_vec)
+    if grouping_method != 2:
+        np.save('group_idx_m_{}_r_{}.npy'.format(grouping_method, ridius), group_idx_vec)
+    else:
+        np.save('group_idx_m_{}_r_{}_seed_{}.npy'.format(grouping_method, ridius, seed), group_idx_vec)
 
 if __name__ == '__main__':
     main()
