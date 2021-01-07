@@ -5,8 +5,8 @@ import numpy as np
 import hdf5storage
 import random
 
-# seed = 10
-# random.seed(seed)
+seed = 30
+random.seed(seed)
 
 def generate_group_indexes(coordinates, voxel_num, ridius, method):
     """
@@ -114,7 +114,7 @@ def generate_group_indexes_furthest_toall(coordinates, voxel_num, ridius):
             group_idx += 1
         # find next point which is furthest from point[i]
         if np.min(group_idx_vec) == 0:
-            dist_i = dist_func(center_set, coordinates)
+            dist_i = dist_func_min(center_set, coordinates)
             sorted_index = np.argsort(dist_i)[::-1]
             for i in sorted_index:
                 if group_idx_vec[i] == 0:
@@ -125,7 +125,7 @@ def generate_group_indexes_furthest_toall(coordinates, voxel_num, ridius):
     return group_idx_vec
 
 
-def dist_func(center_set, coordinates):
+def dist_func_sum(center_set, coordinates):
     p1 = np.zeros(3)
     distance_sum = np.zeros(coordinates.shape[0])
     for i in list(center_set):
@@ -135,11 +135,20 @@ def dist_func(center_set, coordinates):
         distance_sum += np.linalg.norm(p1 - coordinates, axis=1)
     return distance_sum
 
+def dist_func_min(center_set, coordinates):
+    p1 = np.zeros(3)
+    distance_min = np.ones(coordinates.shape[0]) * float('inf')
+    for i in list(center_set):
+        p1[0] = coordinates[i, 0]
+        p1[1] = coordinates[i, 1]
+        p1[2] = coordinates[i, 2]
+        distance_min = np.minimum(distance_min, np.linalg.norm(p1 - coordinates, axis=1))
+    return distance_min
 
 def main():
     voxel_num = 429655
     ridius = 12
-    grouping_method = 2  # 0: original; 1: reverse; 2: random; 3: furthest
+    grouping_method = 4  # 0: original; 1: reverse; 2: random; 3: furthest
     print('r = {}, method = {}'.format(ridius, grouping_method))
 
     # read coordinates
