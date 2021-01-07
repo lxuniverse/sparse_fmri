@@ -54,10 +54,7 @@ def main(para):
 
 
 if __name__ == '__main__':
-    """
-    Dataset splitting can be different
-    Group splitting can be different
-    """
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--exp', type=str, default='debug_seed')
     parser.add_argument('--L', type=float, default=6)
