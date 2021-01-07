@@ -5,6 +5,9 @@ import numpy as np
 import hdf5storage
 import random
 
+seed = 30
+random.seed(seed)
+
 def generate_group_indexes(coordinates, voxel_num, ridius, method):
     """
     method: 0: original; 1: reverse; 2: random;
@@ -20,7 +23,7 @@ def generate_group_indexes(coordinates, voxel_num, ridius, method):
         iteration_list = range(voxel_num - 1, -1, -1)
     elif method == 2:
         iteration_list = list(range(voxel_num))
-        iteration_list = random.shuffle(iteration_list)
+        random.shuffle(iteration_list)
 
     for i in iteration_list:
         print(i)
@@ -111,7 +114,7 @@ def generate_group_indexes_furthest_toall(coordinates, voxel_num, ridius):
             group_idx += 1
         # find next point which is furthest from point[i]
         if np.min(group_idx_vec) == 0:
-            dist_i = dist_func(center_set, coordinates)
+            dist_i = dist_func_min(center_set, coordinates)
             sorted_index = np.argsort(dist_i)[::-1]
             for i in sorted_index:
                 if group_idx_vec[i] == 0:
@@ -122,7 +125,7 @@ def generate_group_indexes_furthest_toall(coordinates, voxel_num, ridius):
     return group_idx_vec
 
 
-def dist_func(center_set, coordinates):
+def dist_func_sum(center_set, coordinates):
     p1 = np.zeros(3)
     distance_sum = np.zeros(coordinates.shape[0])
     for i in list(center_set):
@@ -132,6 +135,15 @@ def dist_func(center_set, coordinates):
         distance_sum += np.linalg.norm(p1 - coordinates, axis=1)
     return distance_sum
 
+def dist_func_min(center_set, coordinates):
+    p1 = np.zeros(3)
+    distance_min = np.ones(coordinates.shape[0]) * float('inf')
+    for i in list(center_set):
+        p1[0] = coordinates[i, 0]
+        p1[1] = coordinates[i, 1]
+        p1[2] = coordinates[i, 2]
+        distance_min = np.minimum(distance_min, np.linalg.norm(p1 - coordinates, axis=1))
+    return distance_min
 
 def main():
     voxel_num = 429655
@@ -149,7 +161,10 @@ def main():
     elif grouping_method == 4:
         group_idx_vec = generate_group_indexes_furthest_toall(coordinates, voxel_num, ridius)
     print(np.max(group_idx_vec))
-    np.save('group_idx_m_{}_r_{}.npy'.format(grouping_method, ridius), group_idx_vec)
+    if grouping_method != 2:
+        np.save('group_idx_m_{}_r_{}.npy'.format(grouping_method, ridius), group_idx_vec)
+    else:
+        np.save('group_idx_m_{}_r_{}_seed_{}.npy'.format(grouping_method, ridius, seed), group_idx_vec)
 
 if __name__ == '__main__':
     main()
