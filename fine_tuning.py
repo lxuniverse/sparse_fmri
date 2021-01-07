@@ -22,12 +22,17 @@ def main(para):
     # get the feature vector. different regions for different fold and region splitting method
     # dict: key: (method, num); value: group_idx list
     group_idx_dict = {(1, 5): [448, 520, 562, 733, 891],
-                      (2, 5): [],
+                      (2, 5): [110, 122, 172, 209, 409],
                       (3, 5): [73, 246, 879, 903, 967],
+                      (4, 5): [3, 103, 130, 220, 428],
                       (1, 20): [102, 154, 185, 251, 286, 392, 448, 485, 520, 562, 586, 733, 801, 815, 820,
                                 830, 868, 891, 1026, 1111, 1116],
-                      (2, 20): [],
-                      (3, 20): [28, 62, 73, 122, 145, 246, 266, 290, 430, 496, 617, 627, 800, 824, 879, 903, 967, 981, 1067, 1111]}
+                      (2, 20): [3, 34, 83, 110, 122, 169, 172, 199, 209, 277, 318, 321, 343, 373, 375,
+                                409, 422, 466, 485, 496, 614, 648, 668],
+                      (3, 20): [28, 62, 73, 122, 145, 246, 266, 290, 430, 496, 617, 627, 800, 824, 879,
+                                903, 967, 981, 1067, 1111],
+                      (4, 20): [3, 30, 103, 111, 130, 142, 220, 223, 299, 428, 471, 703, 813, 934, 1007,
+                                1050, 1076]}
 
     groups_idx = group_idx_dict[(para['group_method'], para['group_select_num'])]
     groups_vec = torch.zeros(para['group_num'])
@@ -77,7 +82,7 @@ if __name__ == '__main__':
     parser.add_argument('--lr', type=float, default=0.00001)
     args = parser.parse_args()
 
-    m_gn_dict = {0: 1111, 1: 1121, 2: 777, 3: 1131}
+    m_gn_dict = {0: 1111, 1: 1121, 2: 777, 3: 1131, 4: 1133}
     para = {'exp': args.exp, 'data_fold': args.data_fold, 'data_seed': 0,
             'feature_num': 429655, 'layers_dim_tuple': (800, 8), 'r': args.r,
             'group_num': m_gn_dict[args.group_method], 'lr1': args.lr, 'device': 'cuda',
