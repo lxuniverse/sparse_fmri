@@ -64,13 +64,13 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # r_gn_dict = {5: 10328, 7: 4518, 10: 1779, 12: 1111, 13: 882, 15: 625, 20: 293, 30: 102}
-    m_gn_dict = {0: 1111, 1: 1121, 2: 777, 3: 1131, 4: 1133}
+    m_gn_dict = {0: 1111, 1: 1121, 2: 777, 3: 1131, 4: 763}
     para = {'exp': args.exp, 'data_fold': args.data_fold, 'data_seed': 0, 'feature_num': 429655,
             'layers_dim_tuple': (200, 16), 'lambda': args.L, 'r': args.r, 'group_num': m_gn_dict[args.group_method],
             'lr1': 0.005, 'lr2': 1, 'device': 'cuda',
             'start_epoch': 0, 'epochs': 600, 'print_freq': 100, 'group_method': args.group_method}
 
-    prng = np.random.RandomState(para['group_method']+1)
-    torch.manual_seed(para['group_method']+1)
+    prng = np.random.RandomState(para['group_method']+5)
+    torch.manual_seed(para['group_method']+5)
 
     main(para)
