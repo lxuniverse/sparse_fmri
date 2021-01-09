@@ -6,4 +6,4 @@ Due to non-disclosure agreement (NDA), we can't share the data used in the paper
 ## Files Description
 select_region.py: L0-regularized learning to select sparse regions
 
-fine_tining.py: fine-tuning the classifier with selected groups
+fine_tining.py: fine-tune the classifier on selected sparse regions
